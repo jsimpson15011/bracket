@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 
 namespace Bracket
 {
@@ -26,7 +26,7 @@ namespace Bracket
             var builder = new MySqlConnectionStringBuilder(
                 Configuration.GetConnectionString("BracketDatabase"));
             builder.Password = Configuration["DbPassword"];
-            services.AddTransient<MySqlConnection>(_ => new MySqlConnection(builder.ConnectionString));
+            services.AddTransient<AppDb>(_ => new AppDb(builder.ConnectionString));
             
             services.AddControllersWithViews();
             
